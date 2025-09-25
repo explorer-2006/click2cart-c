@@ -103,63 +103,79 @@ void login_page()
         return;
     }
 
-    do
-    { // keep asking until password entered
-
-        printf("enter the password: ");
-        i = 0; // reset index everytime loop runs
+    int attempts = 0;
+    while (attempts < 3)
+    {
+        printf("Enter password: ");
+        i = 0;
 
         while (1)
         {
             ch = getch();
             if (ch == '\r' || ch == '\n')
-            { // if user press enter
+            {
                 if (i == 0)
                 {
-                    printf("\npassword cannot be empty\n\n");
+                    printf("\nPassword cannot be empty!!\n\n");
                     i = -1;
                     break;
                 }
-                password[i] = '\0';
-                printf("\n");
-
-                break;
+                else
+                {
+                    password[i] = '\0';
+                    printf("\n");
+                    break;
+                }
             }
-            else if (ch == 127 || ch == 8)
-            { // ascii for backspace or delete
-
+            else if (ch == 127 || ch == 8) // backspace
+            {
                 if (i > 0)
                 {
                     i--;
                     printf("\b \b");
                 }
             }
-            else if (i < (int)sizeof(password) - 1)
+            else
             {
-                password[i++] = ch;
-                printf("*");
+                if (i < (int)sizeof(password) - 1)
+                {
+                    password[i++] = ch;
+                    printf("*");
+                }
             }
         }
+
         if (i == -1)
         {
-            continue;
+            continue; // re-ask same attempt if empty password
         }
 
-        if ((strcmp(password, storedPassword) != 0))
+        if (strcmp(storedPassword, password) != 0)
         {
-            printf("password doesnt match\n\n");
+            attempts++;
+            if (attempts < 3)
+            {
+                printf("Incorrect password. %d attempt(s) left.\n\n", 3 - attempts);
+            }
         }
         else
         {
             foundPassword = 1;
+            break;
         }
-    } while (strcmp(password, storedPassword) != 0);
+    }
 
-    if (foundEmail == 1 && foundPassword == 1)
-    { // if match is found
-        printf("welcome %s\n", storedName);
+    if (foundPassword == 1)
+    {
+        printf("Hello %s\n", storedName);
+    }
+    else
+    {
+        printf("Too many failed attempts. Login failed!\n");
     }
 }
+
+    
 
 void registration_page()
 { // code for registration page

@@ -118,6 +118,7 @@ void login_page()
                 {
                     printf("\npassword cannot be empty\n\n");
                     i = -1;
+                    break;
                 }
                 password[i] = '\0';
                 printf("\n");

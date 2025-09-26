@@ -14,9 +14,7 @@ meet buddhdev:meet123@gmail.com:hello123
 jaydeep ramesh:ramu1234@gmail.com:qwerty
 purva nayak:purva@gmail.com:@kumar
 prince hadiya:hadiyaprince354@gmail.com:34526
-art.c -o click2cart } ; if ( :clear ; if ($?) { cd "c:\Use:s\Meet\OneDrive\Desktop\cse 
 nirav patel:nirav@gmail.com:nirav
 jeevan batra:jeevan2006@gmail.com:badmosh
 mohibhasan shaikh:mohib@gmail.com:mohibhasan12
-art.c -o click2cart && "c:\U : project\"click2cart:clear && cd "c:\Users\Meet\O
 Shardav  bhatt:mathspaglu@gmail.com:maths

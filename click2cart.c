@@ -37,7 +37,7 @@ int main()
         registration_page();
     };
 
-    printf("cart ");
+    printf("\nWelcome to Cart\n ");
 
     return 0;
 }

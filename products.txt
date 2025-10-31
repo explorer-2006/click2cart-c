@@ -1,0 +1,25 @@
+101,iPhone 14,79999.00,10,Electronics
+102,MacBook Air,99999.00,5,Electronics
+103,Smart Watch,9999.00,15,Electronics
+104,Bluetooth Speaker,3499.00,25,Electronics
+105,Wireless Earbuds,4999.00,30,Electronics
+201,Men's T-Shirt,699.00,50,Clothing
+202,Women's Jeans,1299.00,35,Clothing
+203,Sneakers,2499.00,20,Clothing
+204,Jacket,1999.00,15,Clothing
+205,Cap,399.00,40,Clothing
+301,Rice 5kg,299.00,40,Grocery
+302,Olive Oil 1L,649.00,25,Grocery
+303,Biscuits Pack,49.00,100,Grocery
+304,Instant Noodles,30.00,200,Grocery
+305,Sugar 1kg,60.00,150,Grocery
+401,Shampoo,249.00,60,Personal Care
+402,Toothpaste,99.00,100,Personal Care
+403,Face Cream,349.00,70,Personal Care
+404,Body Lotion,299.00,50,Personal Care
+405,Soap Bar,45.00,120,Personal Care
+501,Notebook,59.00,100,Stationery
+502,Pencil Box,99.00,80,Stationery
+503,Blue Pen,20.00,200,Stationery
+504,Marker Set,149.00,60,Stationery
+505,Highlighter,99.00,90,Stationery

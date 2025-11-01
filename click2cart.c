@@ -6,6 +6,7 @@
 #include <ctype.h>
 
 // ---LOGIN AND REGISTRATION PAGE--- //
+
 //Loads products from file
 void login_page();
 
@@ -42,7 +43,9 @@ int main() {
         if (choice == 1 || choice == 2)
          {
             break; // valid input → exit loop
-        } else {
+        } 
+        else 
+        {
             printf("Please enter valid input!!\n");
         }
     }
@@ -50,7 +53,8 @@ int main() {
     if (choice == 1) 
     {
         login_page();
-    } else {
+    } else
+    {
         registration_page();
     }
 
@@ -186,12 +190,15 @@ void login_page()
     {
         printf("Hello %s\n", storedName);
         printf("\nLogin successful! Redirecting to shopping page...\n");
-        // --- FUNCTION: startShopping ---
-        // Purpose : Allows user to browse and select products
-        // Features:
-        //   1. Displays category-wise products
-        //   2. Lets user add products to cart
-        //   3. Calculates total bill and shows summary
+        /* --- FUNCTION: startShopping ---
+
+        Purpose : Allows user to browse and select products
+
+        Features:
+        1. Displays category-wise products
+        2. Lets user add products to cart
+        3. Calculates total bill and shows summary
+        */
         startShopping();
     }
     else
@@ -384,8 +391,8 @@ void loadProducts()
 //1. View all categories
 void browseByCategory()
  {
-    char category[20][30];
-    int uniqueCount = 0;
+    char category[20][30];//category stores unique categories name 
+    int uniqueCount = 0;//count of different  categories 
 
     printf("\n--- Categories ---\n");
     for (int i = 0; i < productCount; i++) 
@@ -421,7 +428,8 @@ void browseByCategory()
     int pid, qty;
     printf("Enter Product ID to add to cart (0 to skip): ");
     scanf("%d", &pid);
-    if (pid == 0) return;
+    if (pid == 0) 
+    return;
     printf("Quantity: ");
     scanf("%d", &qty);
 

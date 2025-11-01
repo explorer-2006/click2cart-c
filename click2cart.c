@@ -6,10 +6,7 @@
 #include <ctype.h>
 
 // ---LOGIN AND REGISTRATION PAGE--- //
-<<<<<<< HEAD
 
-=======
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
 //Loads products from file
 void login_page();
 
@@ -46,13 +43,9 @@ int main() {
         if (choice == 1 || choice == 2)
          {
             break; // valid input → exit loop
-<<<<<<< HEAD
         } 
         else 
         {
-=======
-        } else {
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
             printf("Please enter valid input!!\n");
         }
     }
@@ -60,12 +53,8 @@ int main() {
     if (choice == 1) 
     {
         login_page();
-<<<<<<< HEAD
     } else
     {
-=======
-    } else {
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
         registration_page();
     }
 
@@ -201,7 +190,6 @@ void login_page()
     {
         printf("Hello %s\n", storedName);
         printf("\nLogin successful! Redirecting to shopping page...\n");
-<<<<<<< HEAD
         /* --- FUNCTION: startShopping ---
 
         Purpose : Allows user to browse and select products
@@ -211,14 +199,6 @@ void login_page()
         2. Lets user add products to cart
         3. Calculates total bill and shows summary
         */
-=======
-        // --- FUNCTION: startShopping ---
-        // Purpose : Allows user to browse and select products
-        // Features:
-        //   1. Displays category-wise products
-        //   2. Lets user add products to cart
-        //   3. Calculates total bill and shows summary
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
         startShopping();
     }
     else
@@ -411,13 +391,8 @@ void loadProducts()
 //1. View all categories
 void browseByCategory()
  {
-<<<<<<< HEAD
     char category[20][30];//category stores unique categories name 
     int uniqueCount = 0;//count of different  categories 
-=======
-    char category[20][30];
-    int uniqueCount = 0;
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
 
     printf("\n--- Categories ---\n");
     for (int i = 0; i < productCount; i++) 
@@ -453,12 +428,8 @@ void browseByCategory()
     int pid, qty;
     printf("Enter Product ID to add to cart (0 to skip): ");
     scanf("%d", &pid);
-<<<<<<< HEAD
     if (pid == 0) 
     return;
-=======
-    if (pid == 0) return;
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
     printf("Quantity: ");
     scanf("%d", &qty);
 
@@ -484,110 +455,6 @@ void showOffers() {
             printf("%d. %s - Rs.%.2f (%.0f%% OFF)\n",
                    products[i].id, products[i].name,
                    products[i].price, products[i].discount);
-<<<<<<< HEAD
-    }
-}
-
-//3. View cart
-void viewCart() {
-    if (cartCount == 0) 
-    {
-        printf("\nYour cart is empty!\n");
-        return;
-    }
-    float total = 0;
-    printf("\n--- Your Cart ---\n");
-    for (int i = 0; i < cartCount; i++)
-     {
-        float priceAfterDiscount = cart[i].product.price * (1 - cart[i].product.discount / 100);
-        float subtotal = priceAfterDiscount * cart[i].quantity;
-        printf("%d x %s - Rs.%.2f each = Rs.%.2f\n",
-               cart[i].quantity, cart[i].product.name,
-               priceAfterDiscount, subtotal);
-        total += subtotal;
-    }
-    printf("Total: Rs.%.2f\n", total);
-}
-
-//4. Remove from cart
-void removeFromCart() 
-{
-    if (cartCount == 0) 
-    {
-        printf("Cart is empty!\n");
-        return;
-    }
-    int pid;
-    printf("Enter Product ID to remove: ");
-    scanf("%d", &pid);
-
-    for (int i = 0; i < cartCount; i++)
-     {
-        if (cart[i].product.id == pid) 
-        {
-            for (int j = i; j < cartCount - 1; j++)
-                cart[j] = cart[j + 1];
-            cartCount--;
-            printf("Removed from cart!\n");
-            return;
-        }
-    }
-    printf("Product not found in cart!\n");
-}
-
-//5. Checkout
-void checkout()
- {
-    if (cartCount == 0) 
-    {
-        printf("Cart is empty!\n");
-        return;
-    }
-
-    float total = 0;
-    printf("\n--- Checkout ---\n");
-    for (int i = 0; i < cartCount; i++) 
-    {
-        float finalPrice = cart[i].product.price * (1 - cart[i].product.discount / 100);
-        total += finalPrice * cart[i].quantity;
-    }
-    printf("Total amount to pay: Rs.%.2f\n", total);
-    printf("Thank you for shopping with Click2Cart!\n");
-}
-
-// Shopping menu
-void startShopping() 
-{
-    loadProducts();
-
-    int choice;
-    while (1) {
-        printf("\n===== SHOPPING MENU =====\n");
-        printf("1. Browse Products by Category\n");
-        printf("2. Today's Offers & Discounts\n");
-        printf("3. View Cart\n");
-        printf("4. Remove from Cart\n");
-        printf("5. Checkout & Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
-        getchar();
-
-        switch (choice) 
-        {
-            case 1: browseByCategory(); 
-                break;
-            case 2: showOffers(); 
-                break;
-            case 3: viewCart();
-                 break;
-            case 4: removeFromCart(); 
-                break;
-            case 5: checkout(); 
-                return;
-            default: printf("Invalid choice!\n");
-        }
-=======
->>>>>>> 23f0ffea0fdebdc3a2a6e8d65f0962257d7fc203
     }
 }
 
@@ -691,4 +558,3 @@ void startShopping()
         }
     }
 }
-

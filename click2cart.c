@@ -359,7 +359,7 @@ int productCount = 0, cartCount = 0;//cartCount-variable that keeps track of how
                                     //productCount-number of products currently loaded
 void startShopping() //The main shopping menu 
 {
-    
+    system("cls");
 
     int choice;
 
@@ -439,6 +439,7 @@ void loadProducts()
 // 1. View all categories
 void browseByCategory()
 {
+    system("cls");
     char category[20][30];//stores the list of unique product categories.
     int uniqueCount = 0;//keeps track of how many unique categories have been found so far
 
@@ -562,6 +563,7 @@ void browseByCategory()
 // 2. Show today’s offers
 void showOffers()
 {
+    system("cls");
      printf("\n----------------");
      printf("\n TODAYS OFFERS\n");
      printf("----------------\n\n");
@@ -595,6 +597,7 @@ void showOffers()
 // 3. View and remove item from cart
 void viewAndManageCart() 
 {
+    system("cls");
     if (cartCount == 0) 
     {
         printf("\nYour cart is empty!\n");
@@ -701,6 +704,7 @@ void viewAndManageCart()
 // 4. Checkout
 void checkout()
 {
+    system("cls");
     int payment_choice;
     char card_no[17] = {};
     int i = 0;

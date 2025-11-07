@@ -14,7 +14,6 @@ void browseByCategory();
 void showOffers();
 void viewAndManageCart();
 void checkout();
-void startShopping();
 float offers(float total);
 
 // ---MAIN FUNCTION--- //
@@ -338,7 +337,7 @@ void registration_page()
 
 // =============== SHOPPING SYSTEM ==================
 
-struct Product
+struct Product //This defines what each product contains
 {
     int id;
     char name[50];
@@ -348,17 +347,17 @@ struct Product
     float discount;
 };
 
-struct CartItem
+struct CartItem //This defines what’s inside your shopping cart
 {
     struct Product product;
     int quantity;
 };
 
-struct Product products[50];
-struct CartItem cart[50];
-int productCount = 0, cartCount = 0;
-
-void startShopping()
+struct Product products[50];// All available items (loaded from file)
+struct CartItem cart[50];//What the user added
+int productCount = 0, cartCount = 0;//cartCount-variable that keeps track of how many items are currently in the shopping cart.
+                                    //productCount-number of products currently loaded
+void startShopping() //The main shopping menu 
 {
     
 
@@ -368,10 +367,10 @@ void startShopping()
     printf("  DASHBOARD");
     printf("\n-------------\n\n");
 
-    printf("1. Browse Products by Category\n");
-    printf("2. Today's Offers & Discounts\n");
-    printf("3. View and Remove item from Cart\n");
-    printf("4. Checkout & Exit\n");
+    printf("1. Browse Products by Category\n");//View + Add to Cart
+    printf("2. Today's Offers & Discounts\n");//Shows offers
+    printf("3. View and Remove item from Cart\n");//cart managment 
+    printf("4. Checkout & Exit\n");//offers and payment 
 
     do
     {
@@ -440,17 +439,17 @@ void loadProducts()
 // 1. View all categories
 void browseByCategory()
 {
-    char category[20][30];
-    int uniqueCount = 0;
+    char category[20][30];//stores the list of unique product categories.
+    int uniqueCount = 0;//keeps track of how many unique categories have been found so far
 
     printf("\n\n------------\n");
     printf(" CATEGORIES");
     printf("\n------------\n\n");
 
     // Collect unique categories
-    for (int i = 0; i < productCount; i++)
+    for (int i = 0; i < productCount; i++)//For each product, it checks if the product's category is already in category[].
     {
-        int found = 0;
+        int found = 0;//will indicate whether the current product’s category is already in the category[] list
         for (int j = 0; j < uniqueCount; j++)
         {
             if (strcmp(products[i].category, category[j]) == 0)
@@ -461,13 +460,13 @@ void browseByCategory()
         }
         if (!found)
         {
-            strcpy(category[uniqueCount], products[i].category);
+            strcpy(category[uniqueCount], products[i].category);// store new unique category
             printf("%d. %s\n", uniqueCount + 1, category[uniqueCount]);
             uniqueCount++;
         }
     }
 
-    int catChoice;
+    int catChoice;//will store the number the user enters corresponding to the category they want to browse.
     do
     {
         printf("\nEnter your choice (Enter 0 to return): ");
@@ -478,7 +477,7 @@ void browseByCategory()
                 ; // clear input
             continue;
         }
-        if (catChoice > uniqueCount || catChoice < 0)
+        if (catChoice > uniqueCount || catChoice < 0)//is a variable that keeps track of the number of unique categories found in your products list
         {
             printf("Please enter a valid input!\n");
         }
@@ -499,23 +498,23 @@ void browseByCategory()
         {
             printf("%d. %s - Rs.%.2f (%.0f%% OFF)\n",
                    products[i].id, products[i].name,
-                   products[i].price, products[i].discount);
+                   (double)products[i].price, (double)products[i].discount);
         }
     }
 
     // Add to cart section
-    int pid, qty;
+    int pid, qty;//pid will store the Product ID that the user wants to add to the cart.
+                 //qty will store the quantity of that product the user wants.
 
     while (1)
     {
-        int foundInCategory = 0; // reset every time user re-enters
+        int foundInCategory = 0; // This variable keeps track of whether the entered Product ID exists in the chosen category
 
         printf("\nEnter Product ID to add to cart (0 to return): ");
         if (scanf("%d", &pid) != 1)
         {
             printf("Please enter a valid product ID!\n");
-            while (getchar() != '\n')
-                ; // clear input
+            while (getchar() != '\n'); // clear input
             continue;
         }
 
@@ -671,8 +670,8 @@ void viewAndManageCart()
                         // Remove the entire product if removeQty >= current quantity
                         for (int j = i; j < cartCount - 1; j++)
                             cart[j] = cart[j + 1];
-                        cartCount--;
-                        printf("Removed entire %s from cart!\n", cart[i].product.name);
+                             cartCount--;
+                            printf("Removed entire %s from cart!\n", cart[i].product.name);
                     }
 
                     break;

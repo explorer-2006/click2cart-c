@@ -4,12 +4,6 @@
 #include <time.h>
 #include <conio.h>
 #include <ctype.h>
-#define RED    "\033[1;31m"
-#define GREEN  "\033[1;32m"
-#define CYAN   "\033[1;36m"
-#define YELLOW  "\033[1;33m"
-#define MAGENTA "\033[1;35m"
-#define RESET  "\033[0m"
 
 // ---LOGIN AND REGISTRATION PAGE--- //
 
@@ -27,11 +21,11 @@ int main() {
     int choice; // user entering choice for login page
 
     printf("-----------------");
-    printf(YELLOW"\n   CLICK2CART\n"RESET);
+    printf("\n   CLICK2CART\n");
     printf("-----------------");
 
-    printf(CYAN"\n\nSignup page:\n"RESET);
-    printf(CYAN"1."RESET "Login\n"CYAN"2."RESET "Register\n");
+    printf("\n\nSignup page:\n");
+    printf("1. Login\n2. Register\n");
 
     while (1)
      {
@@ -83,17 +77,17 @@ void login_page()
     char pwd;
 
     printf("\n\n\n---------------------");
-    printf(GREEN"\nWELCOME TO LOGIN PAGE\n"RESET);
+    printf("\nWELCOME TO LOGIN PAGE\n");
     printf("---------------------\n\n\n");
 
     do
     {
-        printf(CYAN"Enter your Email ID (space and case sensitive): "RESET);
+        printf("Enter your Email ID (space and case sensitive): ");
         fgets(emailId, sizeof(emailId), stdin);
         len = strlen(emailId); // length of the email id entered
         if (len <= 1)
         {
-            printf(RED"please enter valid input!!!\n\n"RESET);
+            printf("please enter valid input!!!\n\n");
         }
     } while (len <= 1);
 
@@ -106,7 +100,7 @@ void login_page()
     char buffer[1024] = {0};
     if (pFile == NULL)
     {
-        printf(RED"error reading the data"RESET);
+        printf("error reading the data");
         return;
     }
     while (fgets(buffer, sizeof(buffer), pFile) != NULL)
@@ -126,14 +120,14 @@ void login_page()
     }
     if (foundEmail != 1)
     {
-        printf(RED"user not found\n"RESET); // if user doesnt exist break code
+        printf("user not found\n"); // if user doesnt exist break code
         return;
     }
 
     int attempts = 0;
     while (attempts < 3)
     {
-        printf(CYAN"Enter password: "RESET);
+        printf("Enter password: ");
         i = 0;
 
         while (1)
@@ -143,7 +137,7 @@ void login_page()
             {
                 if (i == 0)
                 {
-                    printf(RED"\nPassword cannot be empty!!\n\n"RESET);
+                    printf("\nPassword cannot be empty!!\n\n");
                     i = -1;
                     break;
                 }
@@ -182,7 +176,7 @@ void login_page()
             attempts++;
             if (attempts < 3)
             {
-                printf(RED"Incorrect password. %d attempt(s) left.\n\n"RESET, 3 - attempts);
+                printf("Incorrect password. %d attempt(s) left.\n\n", 3 - attempts);
             }
         }
         else
@@ -194,8 +188,8 @@ void login_page()
 
     if (foundPassword == 1)
     {
-        printf(YELLOW"Hello %s\n"RESET, storedName);
-        printf(MAGENTA"\nLogin successful! Redirecting to shopping page...\n"RESET);
+        printf("Hello %s\n", storedName);
+        printf("\nLogin successful! Redirecting to shopping page...\n");
         /* --- FUNCTION: startShopping ---
 
         Purpose : Allows user to browse and select products
@@ -209,7 +203,7 @@ void login_page()
     }
     else
     {
-        printf(RED"Too many failed attempts. Login failed!\n"RESET);
+        printf("Too many failed attempts. Login failed!\n");
     }
 }
 // ---REGISTRATION PAGE--- //
@@ -226,17 +220,17 @@ void registration_page()
     char storedName[30], storedEmail[30], storedPassword[30];
 
     printf("\n\n\n----------------------------");
-    printf(GREEN"\nWELCOME TO REGISTRATION PAGE\n"RESET);
+    printf("\nWELCOME TO REGISTRATION PAGE\n");
     printf("----------------------------\n\n\n");
 
     do
     { // code for first name
-        printf(CYAN"Enter your First name: "RESET);
+        printf("enter your First name: ");
         fgets(Rfname, sizeof(Rfname), stdin);
 
         if (strlen(Rfname) == 1)
         {
-            printf(RED"First name cannot be empty\n\n"RESET);
+            printf("First name cannot be empty\n\n");
         }
         else
         {
@@ -247,12 +241,12 @@ void registration_page()
 
     do
     { // code for last name
-        printf(CYAN"enter your Last name: "RESET);
+        printf("enter your Last name: ");
         fgets(Rlname, sizeof(Rlname), stdin);
 
         if (strlen(Rlname) == 1)
         {
-            printf(RED"Last name cannot be empty\n\n"RESET);
+            printf("Last name cannot be empty\n\n");
         }
         else
         {
@@ -263,12 +257,12 @@ void registration_page()
 
     do
     { // code for email
-        printf(CYAN"Enter your Email: "RESET);
+        printf("Enter your Email: ");
         fgets(Remail, sizeof(Remail), stdin);
 
         if (strlen(Remail) == 1)
         {
-            printf(RED"Email cannot be empty\n\n"RESET);
+            printf("Email cannot be empty\n\n");
         }
         else
         {
@@ -279,12 +273,12 @@ void registration_page()
 
     do
     {
-        printf(CYAN"Enter your password: "RESET); // code for password
+        printf("Enter your password: "); // code for password
         fgets(Rpassword, sizeof(Rpassword), stdin);
 
         if (strlen(Rpassword) == 1)
         {
-            printf(RED"password cannot be empty\n\n"RESET);
+            printf("password cannot be empty\n\n");
         }
         else
         {
@@ -300,7 +294,7 @@ void registration_page()
 
     if (pFile == NULL)
     {
-        printf(RED"error writing the data"RESET);
+        printf("error writing the data");
         return;
     }
     else
@@ -318,7 +312,7 @@ void registration_page()
             sscanf(buffer, "%[^:]:%[^:]:%s", storedName, storedEmail, storedPassword); // subsets of the string buffer and storing that data
             if (strcmp(storedEmail, Remail) == 0)
             { // code to check if user already exists
-                printf(RED"user already exist"RESET);
+                printf("user already exist");
                 userExists = 1;
                 break;
             }
@@ -332,14 +326,14 @@ void registration_page()
         FILE *pFile = fopen("userData.txt", "a");
         if (pFile == NULL)
         {
-            printf(RED"error writing the data"RESET);
+            printf("error writing the data");
             return;
         }
         fprintf(pFile, "%s\n", Rdata);
         fclose(pFile);
-        printf(GREEN"\nRegistration successfull!! you can now login\n"RESET);
+        printf("\nRegistration successfull!! you can now login\n");
         login_page();
-        printf(MAGENTA"\nRegistration successful!! Redirecting to shopping page...\n"RESET);
+        printf("\nRegistration successful!! Redirecting to shopping page...\n");
         startShopping(); 
 
     }
@@ -375,7 +369,7 @@ void loadProducts()
     FILE *file = fopen("products.txt", "r");
     if (!file)
      {
-        printf(RED"Error: could not open products.txt\n"RESET);
+        printf("Error: could not open products.txt\n");
         exit(1);
     }
 
@@ -400,7 +394,7 @@ void browseByCategory()
     char category[20][30];//category stores unique categories name 
     int uniqueCount = 0;//count of different  categories 
 
-    printf(YELLOW"\n--- Categories ---\n"RESET);
+    printf("\n--- Categories ---\n");
     for (int i = 0; i < productCount; i++) 
     {
         int found = 0;
@@ -410,33 +404,33 @@ void browseByCategory()
         if (!found) 
         {
             strcpy(category[uniqueCount], products[i].category);
-            printf(CYAN"%d"RESET". %s\n", uniqueCount + 1, category[uniqueCount]);
+            printf("%d. %s\n", uniqueCount + 1, category[uniqueCount]);
             uniqueCount++;
         }
     }
 
     int catChoice;
-    printf(CYAN"Choose a category (0 to return): "RESET);
+    printf("Choose a category (0 to return): ");
     scanf("%d", &catChoice);
     getchar();
     if (catChoice < 1 || catChoice > uniqueCount) return;
 
-    printf(GREEN"\nProducts in %s:\n"RESET, category[catChoice - 1]);
+    printf("\nProducts in %s:\n", category[catChoice - 1]);
     for (int i = 0; i < productCount; i++) {
         if (strcmp(products[i].category, category[catChoice - 1]) == 0) 
         {
-            printf(CYAN"%d"RESET". %s"  YELLOW" - Rs.%.2f  "RESET MAGENTA"  (%.0f%% OFF)\n"RESET,
+            printf("%d. %s - Rs.%.2f (%.0f%% OFF)\n",
                    products[i].id, products[i].name,
                    products[i].price, products[i].discount);
         }
     }
 
     int pid, qty;
-    printf(CYAN"\nEnter Product ID to add to cart (0 to skip): "RESET);
+    printf("Enter Product ID to add to cart (0 to skip): ");
     scanf("%d", &pid);
     if (pid == 0) 
     return;
-    printf(CYAN"Quantity: "RESET);
+    printf("Quantity: ");
     scanf("%d", &qty);
 
     for (int i = 0; i < productCount; i++) 
@@ -445,16 +439,16 @@ void browseByCategory()
             cart[cartCount].product = products[i];
             cart[cartCount].quantity = qty;
             cartCount++;
-            printf(YELLOW"%d x %s added to cart!\n"RESET, qty, products[i].name);
+            printf("%d x %s added to cart!\n", qty, products[i].name);
             return;
         }
     }
-    printf(RED"Invalid Product ID!\n"RESET);
+    printf("Invalid Product ID!\n");
 }
 
 //2. Show today’s offers
 void showOffers() {
-    printf(GREEN"\n--- Today's Offers ---\n"RESET);
+    printf("\n--- Today's Offers ---\n");
     for (int i = 0; i < productCount; i++)
      {
         if (products[i].discount >= 20)
@@ -463,111 +457,55 @@ void showOffers() {
                    products[i].price, products[i].discount);
     }
 }
-// 3. Combined View & Manage Cart Function
-void viewAndManageCart() 
-{
+
+//3. View cart
+void viewandManagecart() {
     if (cartCount == 0) 
     {
         printf("\nYour cart is empty!\n");
         return;
     }
-
-    char choice;
-
-    // Loop so the user can remove multiple items until they choose to exit
-    while (1) 
-    {
-        float total = 0;
-        printf("\n--- Your Cart ---\n");
-
-        // Display all items in cart
-        for (int i = 0; i < cartCount; i++) 
-        {
-            float priceAfterDiscount = cart[i].product.price * (1 - cart[i].product.discount / 100);
-            float subtotal = priceAfterDiscount * cart[i].quantity;
-
-            printf("%d. [ID: %d] %s\n   Quantity: %d \n   Price after discount: Rs.%.2f \n   Subtotal: Rs.%.2f\n",
-                   i + 1,
-                   cart[i].product.id,
-                   cart[i].product.name,
-                   cart[i].quantity,
-                   priceAfterDiscount,
-                   subtotal);
-
-            total += subtotal;
-        }
-
-        printf("  Total: Rs.%.2f\n", total);
-
-        // Ask if user wants to remove an item
-        printf("\nDo you want to remove an item? (y/n): ");
-        scanf(" %c", &choice);
-
-        if (choice == 'y' || choice == 'Y') 
-        {
-            int pid,removeQty;
-            printf("Enter Product ID to remove: ");
-            scanf("%d", &pid);
-
-            int found = 0;
-
-            // Search for and remove the product
-            for (int i = 0; i < cartCount; i++) 
-            {
-                if (cart[i].product.id == pid) 
-                {
-                    found = 1;
-                    printf("Current quantity of %s: %d\n", cart[i].product.name, cart[i].quantity);
-                    printf("Enter quantity to remove: ");
-                    scanf("%d", &removeQty);
-
-                    if (removeQty <= 0) 
-                    {
-                        printf("Invalid quantity!\n");
-                        break;
-                    }
-
-                    if (removeQty < cart[i].quantity) 
-                    {
-                        // Reduce only the specified quantity
-                        cart[i].quantity -= removeQty;
-                        printf("Removed %d of %s from cart. Remaining: %d\n",
-                               removeQty, cart[i].product.name, cart[i].quantity);
-                    }
-                    else 
-                    {
-                        // Remove the entire product if removeQty >= current quantity
-                        for (int j = i; j < cartCount - 1; j++)
-                            cart[j] = cart[j + 1];
-                        cartCount--;
-                        printf("Removed entire %s from cart!\n", cart[i].product.name);
-                    }
-
-                    break;
-                }
-            }
-
-            if (!found)
-                printf("Product not found in cart!\n");
-
-            // If cart becomes empty, exit loop automatically
-            if (cartCount == 0) 
-            {
-                printf("\nYour cart is now empty!\n");
-                break;
-            }
-        }
-        else 
-        {
-            // Exit loop and return to main menu
-            printf("\nReturning to main menu...\n");
-            break;
-        }
+    float total = 0;
+    printf("\n--- Your Cart ---\n");
+    for (int i = 0; i < cartCount; i++)
+     {
+        float priceAfterDiscount = cart[i].product.price * (1 - cart[i].product.discount / 100);
+        float subtotal = priceAfterDiscount * cart[i].quantity;
+        printf("%d x %s - Rs.%.2f each = Rs.%.2f\n",
+               cart[i].quantity, cart[i].product.name,
+               priceAfterDiscount, subtotal);
+        total += subtotal;
     }
+    printf("Total: Rs.%.2f\n", total);
 }
 
+//4. Remove from cart
+void removeFromCart() 
+{
+    if (cartCount == 0) 
+    {
+        printf("Cart is empty!\n");
+        return;
+    }
+    int pid;
+    printf("Enter Product ID to remove: ");
+    scanf("%d", &pid);
 
-//4. Checkout
+    for (int i = 0; i < cartCount; i++)
+     {
+        if (cart[i].product.id == pid) 
+        {
+            for (int j = i; j < cartCount - 1; j++)
+                cart[j] = cart[j + 1];
+            cartCount--;
+            printf("Removed from cart!\n");
+            return;
+        }
+    }
+    printf("Product not found in cart!\n");
+}
+
+//5. Checkout
 void checkout()
  {
     if (cartCount == 0) 
@@ -594,12 +532,13 @@ void startShopping()
 
     int choice;
     while (1) {
-        printf(GREEN"\n===== SHOPPING MENU =====\n"RESET);
+        printf("\n===== SHOPPING MENU =====\n");
         printf("1. Browse Products by Category\n");
         printf("2. Today's Offers & Discounts\n");
-        printf("3. View and Remove from Cart\n");
-        printf("4. Checkout & Exit\n");
-        printf(CYAN"Enter your choice: "RESET);
+        printf("3. View Cart\n");
+        printf("4. Remove from Cart\n");
+        printf("5. Checkout & Exit\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
         getchar();
 
@@ -609,9 +548,11 @@ void startShopping()
                 break;
             case 2: showOffers(); 
                 break;
-            case 3: viewAndManageCart();
+            case 3: viewCart();
                  break;
-            case 4: checkout(); 
+            case 4: removeFromCart(); 
+                break;
+            case 5: checkout(); 
                 return;
             default: printf("Invalid choice!\n");
         }

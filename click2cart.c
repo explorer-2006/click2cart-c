@@ -6,6 +6,13 @@
 #include <ctype.h>
 #include <windows.h>
 
+#define RED    "\033[1;31m"
+#define GREEN  "\033[1;32m"
+#define CYAN   "\033[1;36m"
+#define YELLOW  "\033[1;33m"
+#define MAGENTA "\033[1;35m"
+#define RESET  "\033[0m"
+
 void login_page();
 void registration_page();
 void startShopping();
@@ -14,7 +21,9 @@ void browseByCategory();
 void showOffers();
 void viewAndManageCart();
 void checkout();
+void generate_invoice(char name[], float subtotal, float discount, float total, char payment_mode[], char address[]);
 float offers(float total);
+
 
 // ---MAIN FUNCTION--- //
 int main()
@@ -22,20 +31,20 @@ int main()
     int choice; // user entering choice for login page
 
     printf("-----------------");
-    printf("\n   CLICK2CART\n");
+    printf(YELLOW"\n   CLICK2CART\n"RESET);
     printf("-----------------");
 
-    printf("\n\nSignup page:\n");
-    printf("1. Login\n2. Register\n");
+    printf(GREEN"\n\nSignup page:\n"RESET);
+    printf(CYAN"1."RESET "Login\n"CYAN"2."RESET "Register\n");
 
     while (1)
     {
-        printf("\nEnter your choice: ");
+        printf(CYAN"\nEnter your choice: "RESET);
 
         // check if scanf successfully read an integer
         if (scanf("%d", &choice) != 1)
         {
-            printf("Please enter a valid number (1 or 2)!\n");
+            printf(RED"Please enter a valid number (1 or 2)!\n"RESET);
             while (getchar() != '\n')
                 ; // clear invalid input
             continue;
@@ -48,7 +57,7 @@ int main()
         }
         else
         {
-            printf("Please enter valid input!!\n");
+            printf(RED"Please enter valid input!!\n"RESET);
         }
     }
 
@@ -79,18 +88,18 @@ void login_page()
     char pwd;
 
     printf("\n\n\n---------------------");
-    printf("\nWELCOME TO LOGIN PAGE\n");
+    printf(YELLOW"\nWELCOME TO LOGIN PAGE\n"RESET);
     printf("---------------------\n\n\n");
 
     do
     {
         getchar();
-        printf("Enter your Email ID (space and case sensitive): ");
+        printf(CYAN"Enter your Email ID (space and case sensitive): "RESET);
         fgets(emailId, sizeof(emailId), stdin);
         len = strlen(emailId); // length of the email id entered
         if (len <= 1)
         {
-            printf("please enter valid input!!!\n\n");
+            printf(RED"please enter valid input!!!\n\n"RESET);
         }
     } while (len <= 1);
 
@@ -103,7 +112,7 @@ void login_page()
     char buffer[1024] = {0};
     if (pFile == NULL)
     {
-        printf("error reading the data");
+        printf(RED"error reading the data"RESET);
         return;
     }
     while (fgets(buffer, sizeof(buffer), pFile) != NULL)
@@ -123,14 +132,14 @@ void login_page()
     }
     if (foundEmail != 1)
     {
-        printf("user not found\n"); // if user doesnt exist break code
+        printf(RED"user not found\n"RESET); // if user doesnt exist break code
         return;
     }
 
     int attempts = 0;
     while (attempts < 3)
     {
-        printf("Enter password: ");
+        printf(CYAN"Enter password: "RESET);
         i = 0;
 
         while (1)
@@ -140,7 +149,7 @@ void login_page()
             {
                 if (i == 0)
                 {
-                    printf("\nPassword cannot be empty!!\n\n");
+                    printf(RED"\nPassword cannot be empty!!\n\n"RESET);
                     i = -1;
                     break;
                 }
@@ -179,7 +188,7 @@ void login_page()
             attempts++;
             if (attempts < 3)
             {
-                printf("Incorrect password. %d attempt(s) left.\n\n", 3 - attempts);
+                printf(RED"Incorrect password. %d attempt(s) left.\n\n"RESET, 3 - attempts);
             }
         }
         else
@@ -192,7 +201,7 @@ void login_page()
     if (foundPassword == 1)
     {
         printf("Hello %s\n", storedName);
-        printf("\nLogin successful! Redirecting to shopping page...\n");
+        printf(MAGENTA"\nLogin successful! Redirecting to shopping page...\n"RESET);
         Sleep(2000);
 
         loadProducts();
@@ -200,7 +209,7 @@ void login_page()
     }
     else
     {
-        printf("Too many failed attempts. Login failed!\n");
+        printf(RED"Too many failed attempts. Login failed!\n"RESET);
     }
 }
 // ---REGISTRATION PAGE--- //
@@ -217,19 +226,19 @@ void registration_page()
     char storedName[30], storedEmail[30], storedPassword[30];
 
     printf("\n\n\n----------------------------");
-    printf("\nWELCOME TO REGISTRATION PAGE\n");
+    printf(YELLOW"\nWELCOME TO REGISTRATION PAGE\n"RESET);
     printf("----------------------------\n\n\n");
 
     getchar();
 
     do
     { // code for first name
-        printf("enter your First name: ");
+        printf(CYAN"enter your First name: "RESET);
         fgets(Rfname, sizeof(Rfname), stdin);
 
         if (strlen(Rfname) == 1)
         {
-            printf("First name cannot be empty\n\n");
+            printf(RED"First name cannot be empty\n\n"RESET);
         }
         else
         {
@@ -240,12 +249,12 @@ void registration_page()
 
     do
     { // code for last name
-        printf("enter your Last name: ");
+        printf(CYAN"enter your Last name: "RESET);
         fgets(Rlname, sizeof(Rlname), stdin);
 
         if (strlen(Rlname) == 1)
         {
-            printf("Last name cannot be empty\n\n");
+            printf(RED"Last name cannot be empty\n\n"RESET);
         }
         else
         {
@@ -256,12 +265,12 @@ void registration_page()
 
     do
     { // code for email
-        printf("Enter your Email: ");
+        printf(CYAN"Enter your Email: "RESET);
         fgets(Remail, sizeof(Remail), stdin);
 
         if (strlen(Remail) == 1)
         {
-            printf("Email cannot be empty\n\n");
+            printf(RED"Email cannot be empty\n\n"RESET);
         }
         else
         {
@@ -272,12 +281,12 @@ void registration_page()
 
     do
     {
-        printf("Enter your password: "); // code for password
+        printf(CYAN"Enter your password: "RESET); // code for password
         fgets(Rpassword, sizeof(Rpassword), stdin);
 
         if (strlen(Rpassword) == 1)
         {
-            printf("password cannot be empty\n\n");
+            printf(RED"password cannot be empty\n\n"RESET);
         }
         else
         {
@@ -293,7 +302,7 @@ void registration_page()
 
     if (pFile == NULL)
     {
-        printf("error writing the data");
+        printf(RED"error reading the data"RESET);
         return;
     }
     else
@@ -325,12 +334,12 @@ void registration_page()
         FILE *pFile = fopen("userData.txt", "a");
         if (pFile == NULL)
         {
-            printf("error writing the data");
+            printf(RED"error writing the data"RESET);
             return;
         }
         fprintf(pFile, "%s\n", Rdata);
         fclose(pFile);
-        printf("\nRegistration successfull!! you can now login\n");
+        printf(GREEN"\nRegistration successfull!! you can now login\n"RESET);
         login_page();
     }
 }
@@ -363,27 +372,27 @@ void startShopping() //The main shopping menu
 
     int choice;
 
-    printf("\n\n-------------\n");
-    printf("  DASHBOARD");
+    printf("-------------\n");
+    printf(YELLOW"  DASHBOARD"RESET);
     printf("\n-------------\n\n");
 
-    printf("1. Browse Products by Category\n");//View + Add to Cart
-    printf("2. Today's Offers & Discounts\n");//Shows offers
-    printf("3. View and Remove item from Cart\n");//cart managment 
-    printf("4. Checkout & Exit\n");//offers and payment 
+    printf(CYAN"1."RESET "Browse Products by Category\n");//View + Add to Cart
+    printf(CYAN"2."RESET "Today's Offers & Discounts\n");//Shows offers
+    printf(CYAN"3."RESET "View and Remove item from Cart\n");//cart managment 
+    printf(CYAN"4."RESET "Checkout & Exit\n");//offers and payment 
 
     do
     {
-        printf("\nEnter your choice: ");
+        printf(CYAN"\nEnter your choice: "RESET);
         if (scanf("%d", &choice) != 1)
         {
-            printf("Please enter an integer number!!\n");
+            printf(RED"Please enter an integer number!!\n"RESET);
             getchar();
             continue;
         }
         if (choice > 5 || choice < 1)
         {
-            printf("Please enter valid input!!\n");
+            printf(RED"Please enter valid input!!\n"RESET);
         }
     } while (choice > 5 || choice < 1);
 
@@ -402,7 +411,7 @@ void startShopping() //The main shopping menu
         checkout();
         return;
     default:
-        printf("Invalid choice!\n");
+        printf(RED"Invalid choice!\n"RESET);
 
     }
     
@@ -416,8 +425,8 @@ void loadProducts()
 
     if (!file)
     {
-        printf("Error: could not open products.txt\n");
-        //exit(1);
+        printf(RED"Error: could not open products.txt\n"RESET);
+        
     }
 
     srand(time(NULL)); // for random discounts
@@ -434,7 +443,7 @@ void loadProducts()
         productCount++;
     }
     fclose(file);
-}
+}   
 
 // 1. View all categories
 void browseByCategory()
@@ -443,8 +452,8 @@ void browseByCategory()
     char category[20][30];//stores the list of unique product categories.
     int uniqueCount = 0;//keeps track of how many unique categories have been found so far
 
-    printf("\n\n------------\n");
-    printf(" CATEGORIES");
+    printf("------------\n");
+    printf(YELLOW" CATEGORIES"RESET);
     printf("\n------------\n\n");
 
     // Collect unique categories
@@ -470,10 +479,10 @@ void browseByCategory()
     int catChoice;//will store the number the user enters corresponding to the category they want to browse.
     do
     {
-        printf("\nEnter your choice (Enter 0 to return): ");
+        printf(CYAN"\nEnter your choice (Enter 0 to return): "CYAN);
         if (scanf("%d", &catChoice) != 1)
         {
-            printf("Please enter an integer number!\n");
+            printf(RED"Please enter an integer number!\n"RESET);
             while (getchar() != '\n')
                 ; // clear input
             continue;
@@ -490,14 +499,14 @@ void browseByCategory()
         return;
     }
 
-    printf("\n\n| Products in %s |\n\n", category[catChoice - 1]);
+    printf(GREEN"\n\n| Products in %s |\n\n"RESET, category[catChoice - 1]);
 
     // Show all products in that category
     for (int i = 0; i < productCount; i++)
     {
         if (strcmp(products[i].category, category[catChoice - 1]) == 0)
         {
-            printf("%d. %s - Rs.%.2f (%.0f%% OFF)\n",
+            printf(CYAN"%d."RESET" %s - Rs.%.2f"MAGENTA" (%.0f%% OFF)\n"RESET,
                    products[i].id, products[i].name,
                    (double)products[i].price, (double)products[i].discount);
         }
@@ -511,10 +520,10 @@ void browseByCategory()
     {
         int foundInCategory = 0; // This variable keeps track of whether the entered Product ID exists in the chosen category
 
-        printf("\nEnter Product ID to add to cart (0 to return): ");
+        printf(CYAN"\nEnter Product ID to add to cart (0 to return): "RESET);
         if (scanf("%d", &pid) != 1)
         {
-            printf("Please enter a valid product ID!\n");
+            printf(RED"Please enter a valid product ID!\n"RESET);
             while (getchar() != '\n'); // clear input
             continue;
         }
@@ -531,10 +540,10 @@ void browseByCategory()
             {
                 foundInCategory = 1;
 
-                printf("Enter Quantity: ");
+                printf(CYAN"Enter Quantity: "RESET);
                 if (scanf("%d", &qty) != 1)
                 {
-                    printf("Invalid quantity!\n");
+                    printf(RED"Invalid quantity!\n"RESET);
                     getchar(); // clear invalid input
                     foundInCategory = 0;
                     break;
@@ -545,7 +554,7 @@ void browseByCategory()
                 cart[cartCount].quantity = qty;
                 cartCount++;
 
-                printf("%d x %s added to cart successfully!\n", qty, products[i].name);
+                printf(GREEN"%d x %s added to cart successfully!\n"RESET, qty, products[i].name);
                 Sleep(1500);
 
                 startShopping();
@@ -555,7 +564,7 @@ void browseByCategory()
 
         if (!foundInCategory)
         {
-            printf("Invalid Product ID for this category! Please try again.\n");
+            printf(RED"Invalid Product ID for this category! Please try again.\n"RESET);
         }
     }
 }
@@ -564,13 +573,13 @@ void browseByCategory()
 void showOffers()
 {
     system("cls");
-     printf("\n----------------");
-     printf("\n TODAYS OFFERS\n");
+     printf("----------------");
+     printf(YELLOW" TODAYS OFFER"RESET);
      printf("----------------\n\n");
     for (int i = 0; i < productCount; i = i+3)
     {
-        if (products[i].discount >= 20)
-            printf("%d. %s - Rs.%.2f (%.0f%% OFF)\n",
+        if (products[i].discount >= 20)//423
+            printf(CYAN"%d."RESET" %s - Rs.%.2f "MAGENTA"(%.0f%% OFF)\n"RESET,
 
                    products[i].id, products[i].name,
                    products[i].price, products[i].discount);
@@ -578,15 +587,15 @@ void showOffers()
     printf("\n");
     while (1)
     {
-        printf("Enter 0 to go back: ");
+        printf(CYAN"Enter 0 to go back: "RESET);
         int back;
         if (scanf("%d", &back) != 1)
         {
-            printf("Please enter integer number!!\n\n");
+            printf(RED"Please enter integer number!!\n\n"RESET);
             getchar();
         }
         else if(back != 0){
-            printf("Please enter valid input!!\n\n");
+            printf(RED"Please enter valid input!!\n\n"RESET);
         }
         else{
             startShopping();
@@ -600,7 +609,7 @@ void viewAndManageCart()
     system("cls");
     if (cartCount == 0) 
     {
-        printf("\nYour cart is empty!\n");
+        printf(RED"\nYour cart is empty!\n"RESET);
         return;
     }
 
@@ -610,7 +619,7 @@ void viewAndManageCart()
     while (1) 
     {
         float total = 0;
-        printf("\n--- Your Cart ---\n");
+        printf(GREEN"\n--- Your Cart ---\n\n"RESET);
 
         // Display all items in cart
         for (int i = 0; i < cartCount; i++) 
@@ -618,7 +627,7 @@ void viewAndManageCart()
             float priceAfterDiscount = cart[i].product.price * (1 - cart[i].product.discount / 100);
             float subtotal = priceAfterDiscount * cart[i].quantity;
 
-            printf("%d. [ID: %d] %s\n   Quantity: %d \n   Disount(per product) : Rs. %.2f \n  Price after discount : Rs. %.2f\n  Subtotal : Rs. %.2f\n ",
+            printf("%d. [ID: %d] %s\n   Quantity: %d \n   Discount(per product) : Rs. %.2f \n   Price after discount : Rs. %.2f\n   Subtotal : Rs. %.2f\n\n ",
                    i + 1,
                    cart[i].product.id,
                    cart[i].product.name,
@@ -629,18 +638,19 @@ void viewAndManageCart()
 
             total += subtotal;
         }
-
-        printf("  Total: Rs.%.2f\n", total);
+        printf("\n --------------------");
+        printf("\n|"CYAN"Total: Rs. %.2f"RESET"|\n"RESET, total);
+        printf(" --------------------\n");
 
 
         // Ask if user wants to remove an item
-        printf("\nDo you want to remove an item? (y/n): ");
+        printf(CYAN"\nDo you want to remove an item? (y/n): "RESET);
         scanf(" %c", &choice);
 
         if (choice == 'y' || choice == 'Y') 
         {
             int pid,removeQty;
-            printf("Enter Product ID to remove: ");
+            printf(CYAN"Enter Product ID to remove: "RESET);
             scanf("%d", &pid);
 
             int found = 0;
@@ -651,13 +661,13 @@ void viewAndManageCart()
                 if (cart[i].product.id == pid) 
                 {
                     found = 1;
-                    printf("Current quantity of %s: %d\n", cart[i].product.name, cart[i].quantity);
-                    printf("Enter quantity to remove: ");
+                    printf(GREEN"Current quantity of %s: %d\n"RESET, cart[i].product.name, cart[i].quantity);
+                    printf(CYAN"Enter quantity to remove: "RESET);
                     scanf("%d", &removeQty);
 
                     if (removeQty <= 0) 
                     {
-                        printf("Invalid quantity!\n");
+                        printf(RED"Invalid quantity!\n"RESET);
                         break;
                     }
 
@@ -665,7 +675,7 @@ void viewAndManageCart()
                     {
                         // Reduce only the specified quantity
                         cart[i].quantity -= removeQty;
-                        printf("Removed %d of %s from cart. Remaining: %d\n",
+                        printf(RED"Removed %d of %s from cart."RESET CYAN"Remaining: %d\n"RESET,
                                removeQty, cart[i].product.name, cart[i].quantity);
                     }
                     else 
@@ -674,7 +684,7 @@ void viewAndManageCart()
                         for (int j = i; j < cartCount - 1; j++)
                             cart[j] = cart[j + 1];
                              cartCount--;
-                            printf("Removed entire %s from cart!\n", cart[i].product.name);
+                            printf(CYAN"Removed entire %s from cart!\n"RESET, cart[i].product.name);
                     }
 
                     break;
@@ -682,12 +692,12 @@ void viewAndManageCart()
             }
 
             if (!found)
-                printf("Product not found in cart!\n");
+                printf(RED"Product not found in cart!\n"RESET);
 
             // If cart becomes empty, exit loop automatically
             if (cartCount == 0) 
             {
-                printf("\nYour cart is now empty!\n");
+                printf(RED"\nYour cart is now empty!\n"RESET);
                 startShopping();
                 break;
             }
@@ -713,6 +723,9 @@ void checkout()
     char expiry[5];
     int cvv[3];
     char address[100];
+    char customer_name[50];
+    char payment_mode[20];
+    float subtotal = 0, discount = 0, total = 0;
 
     if (cartCount == 0)
     {
@@ -720,19 +733,24 @@ void checkout()
         return;
     }
 
-    float total = 0;
     printf("\n----------------");
-    printf("\n    CHECKOUT    \n");
+    printf(YELLOW"\n    CHECKOUT    \n"RESET);
     printf("----------------\n\n");
     for (int i = 0; i < cartCount; i++)
     {
         float finalPrice = cart[i].product.price * (1 - cart[i].product.discount / 100);
-        total += finalPrice * cart[i].quantity;
+        subtotal += finalPrice * cart[i].quantity;
     }
-    printf("Total amount to pay: Rs.%.2f\n", total);
+    printf("Subtotal: Rs. %.2f\n", subtotal);
+
+    printf("\nEnter your name: ");
+    scanf(" %[^\n]", customer_name);
 
     // Apply offers (if any)
-    total = offers(total);
+    total = offers(subtotal);
+    discount = subtotal - total;
+
+    printf("Total amount to pay: Rs.%.2f\n", total);
 
     while ((getchar()) != '\n' && getchar() != EOF); // clear buffer before taking address
     printf("\nEnter your delivery address: ");
@@ -740,41 +758,45 @@ void checkout()
     if (address[strlen(address) - 1] == '\n')
         address[strlen(address) - 1] = '\0';
 
-    printf("\nHow would you like to pay?\n");
-    printf("1. Cash\n");
-    printf("2. Card\n");
+    printf(CYAN"\nHow would you like to pay?\n"RESET);
+    printf(CYAN"1."RESET "Cash\n");
+    printf(CYAN"2."RESET "Card\n");
+    printf(CYAN"3."RESET "UPI \n");
 
     do
     {
-        printf("\nEnter your choice: ");
+        printf(CYAN"\nEnter your choice: "RESET);
         if (scanf("%d", &payment_choice) != 1)
         {
-            printf("Invalid input! Enter again.\n");
+            printf(RED"Invalid input! Enter again.\n"RESET);
             while (getchar() != '\n')
                 ;
             continue;
         }
-        if (payment_choice != 1 && payment_choice != 2)
+        if (payment_choice != 1 && payment_choice != 2 && payment_choice != 3)
         {
-            printf("Please enter valid input!!\n");
+            printf(RED"Please enter valid input!!\n"RESET);
         }
-    } while (payment_choice != 1 && payment_choice != 2);
+    } while (payment_choice != 1 && payment_choice != 2 && payment_choice != 3);
 
     switch (payment_choice)
     {
     case 1:
+        strcpy(payment_mode, "Cash");
         printf("\nYou chose to pay by Cash.\n");
-        printf("Bill Amount: Rs. %.2f\n", total);
-        printf("Payment Status: Successful!!!\n");
+        printf(CYAN"Bill Amount:"RESET "Rs. %.2f\n", total);
+        printf(CYAN"Payment Status:"RESET "Pending!!!\n");
         break;
 
     case 2:
+        strcpy(payment_mode, "Card");
+        system("cls");
         printf("\nYou chose to pay by Card.\n");
 
         // CARD NUMBER
           do
             {
-                printf("\nEnter the card number: ");
+                printf(CYAN"\nEnter the card number: "RESET);
                 i = 0;
                 valid = 1;
 
@@ -789,7 +811,7 @@ void checkout()
 
                     if (ch == '\n' || ch == '\r')
                     {
-                        printf("\nyou pressed enter before entering all the digits\n\n");
+                        printf(RED"\nyou pressed enter before entering all the digits\n\n"RESET);
                         valid = 0;
                         break;
                     }
@@ -829,7 +851,7 @@ void checkout()
 
             do
             {
-                printf("\nEnter the Expiry date: ");
+                printf(CYAN"\nEnter the Expiry date: "RESET);
                 i = 0;
                 valid = 1;
                 while (i < 4)
@@ -841,7 +863,7 @@ void checkout()
                     }
                     if (ch == '\n' || ch == '\r')
                     {
-                        printf("\nyou pressed enter before entering all the digits\n\n");
+                        printf(RED"\nyou pressed enter before entering all the digits\n\n"RESET);
                         valid = 0;
                         break;
                     }
@@ -871,7 +893,7 @@ void checkout()
             } while (1);
             do
             {
-                printf("\nEnter CVV: ");
+                printf(CYAN"\nEnter CVV: "RESET);
                 i = 0;
                 valid = 1;
                 while (i < 3)
@@ -879,7 +901,7 @@ void checkout()
                     ch = getch();
                     if (ch == '\n' || ch == '\r')
                     {
-                        printf("\nyou pressed enter before entering all the digits\n\n");
+                        printf(RED"\nyou pressed enter before entering all the digits\n\n"RESET);
                         valid = 0;
                         break;
                     }
@@ -904,22 +926,56 @@ void checkout()
             } while (1);
             printf("\nProcessing.....");
             Sleep(3000);
-            printf("\n\nTransaction Approved!!");
-            printf("\nAmount charged: Rs. %.2f ", total);
-            printf("\nPayment Status: Successful");
+            printf(GREEN"\n\nTransaction Approved!!"RESET);
+            printf(CYAN"\nAmount charged:"RESET" Rs. %.2f ", total);
+            printf(CYAN"\nPayment Status:"RESET" Successful");
         break;
-    }
 
-    printf("\nDelivery Address: %s\n", address);
-    printf("\nThank you for shopping with Click2Cart!\n");
-}
+
+        case 3:
+        strcpy(payment_mode, "UPI");
+        system("cls");
+        printf("\nYou chose to pay by UPI.\n");
+        char upi_id[50];
+
+        printf(CYAN"Enter your UPI ID (e.g. yourname@upi): "RESET);
+        scanf(" %s", upi_id);
+
+        printf("\nGenerating UPI payment link...");
+        Sleep(2000);
+        printf("\nProcessing your UPI payment...");
+        Sleep(3000);
+
+        printf(GREEN"\n\nTransaction Successful "RESET);
+        printf(CYAN"\nAmount Paid: "RESET"Rs. %.2f", total);
+        printf(CYAN"\nPayment Status: "RESET"Successful");
+        break;
+
+    }
+    char invoice_choice,feedback[100];
+printf("\n\nDo you want to generate invoice(Y/N): ");
+scanf(" %c",&invoice_choice);
+invoice_choice = toupper(invoice_choice);   
+
+if(invoice_choice == 'Y')
+ {generate_invoice(customer_name, subtotal, discount, total, payment_mode, address);}
+
+else
+printf("\nThank you for shopping with Click2Cart!!");
+printf("\nPlease give us a feedback!!: ");
+scanf(" %c",feedback);
+
+return; 
+
+   }
 
 // =============== OFFERS FUNCTION ===============
 float offers(float total)
 {
+    system("cls");
     int valid = 0;
     char code[10];
-    int choice, choice_2;
+    char choice, choice_2;
 
     printf("\nWould you like to view offers ? (y/n): ");
     scanf(" %c", &choice);
@@ -928,24 +984,24 @@ float offers(float total)
     if (choice == 'y' || choice == 'Y')
     {
         printf("\n----------------\n");
-        printf("   OFFERS\n");
+        printf(YELLOW"   OFFERS\n"RESET);
         printf("----------------\n\n");
 
-        printf("Billing amount over 5,000  --> 10%% off (Code: SAVE10)\n");
-        printf("Billing amount over 10,000 --> 15%% off (Code: SAVE15)\n");
-        printf("Billing amount over 15,000 --> 25%% off (Code: SAVE25)\n");
+        printf("Billing amount over 5,000  --> 10%% off "MAGENTA"(Code: SAVE10)\n"RESET);
+        printf("Billing amount over 10,000 --> 15%% off "MAGENTA"(Code: SAVE15)\n"RESET);
+        printf("Billing amount over 15,000 --> 25%% off "MAGENTA"(Code: SAVE25)\n"RESET);
 
-        printf("\nWould you like to apply a coupon code? (y/n): ");
+        printf(CYAN"\nWould you like to apply a coupon code? (y/n): "RESET);
         scanf(" %c", &choice_2);
 
         if (choice_2 == 'y' || choice_2 == 'Y')
         {
-            printf("Enter a coupon code (0 to skip): ");
-            scanf("%s", code);
+            printf(CYAN"Enter a coupon code (0 to skip): "RESET);
+            scanf(" %s", code);
 
             if (strcmp(code, "0") == 0)
             {
-                printf("No coupon applied!\n");
+                printf(RED"No coupon applied!\n"RESET);
                 return total;
             }
 
@@ -966,15 +1022,15 @@ float offers(float total)
             }
             else
             {
-                printf("\nInvalid code or not eligible for the discount.\n");
+                printf(RED"\nInvalid code or not eligible for the discount.\n"RESET);
                 Sleep(1000);
                 return total;
             }
 
             if (valid)
             {
-                printf("\nCoupon applied successfully!\n");
-                printf("New total = Rs. %.2f\n", total);
+                printf(GREEN"\nCoupon applied successfully!\n"RESET);
+                printf(CYAN"New total = "RESET"Rs. %.2f\n", total);
                 Sleep(1000);
                 return total;
             }
@@ -986,4 +1042,29 @@ float offers(float total)
     }
 
     return total;
+}    
+
+void generate_invoice(char name[], float subtotal, float discount, float total, char payment_mode[], char address[])
+{
+    char feedback[100];
+    time_t t;
+    time(&t);
+
+    printf("\n\n===========================================\n");
+    printf(YELLOW"              CLICK2CART INVOICE\n"RESET);
+    printf("===========================================\n");
+    printf(CYAN"Customer Name    :"RESET" %s\n", name);
+    printf(CYAN"Date & Time      :"RESET" %s", ctime(&t));
+    printf(CYAN"Delivery Address :"RESET" %s\n", address);
+    printf("-------------------------------------------\n");
+    printf(CYAN"Subtotal      :"RESET" Rs. %.2f\n", subtotal);
+    printf(CYAN"Discount      : "RESET"Rs. %.2f\n", discount);
+    printf(CYAN"Final Total   : "RESET"Rs. %.2f\n", total);
+    printf(CYAN"Payment Mode  : "RESET"%s\n", payment_mode);
+    printf("-------------------------------------------\n");
+    printf(MAGENTA"      Thank you for shopping with Click2Cart!\n"RESET);
+    printf("===========================================\n");
+    printf("\nPlease give us your feedback!!: ");
+    scanf(" %c",feedback);
+    return;
 }

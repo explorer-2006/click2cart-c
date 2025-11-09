@@ -966,7 +966,7 @@ void checkout()
     if (feedback[strlen(feedback) - 1] == '\n')
         feedback[strlen(feedback) - 1] = '\0';
 
-    return;
+    
 }
 
 // =============== OFFERS FUNCTION ===============
@@ -1069,5 +1069,5 @@ void generate_invoice(char name[], float subtotal, float discount, float total, 
     if (feedback[strlen(feedback) - 1] == '\n')
         feedback[strlen(feedback) - 1] = '\0';
 
-    return;
+    
 }
